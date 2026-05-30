@@ -1,0 +1,3 @@
+[deps]
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+KaimonGate = "82bdf658-d2ed-47ee-ab5b-08c5bb95c3ce"

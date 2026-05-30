@@ -1,0 +1,7 @@
+name = "KaimonGate"
+uuid = "82bdf658-d2ed-47ee-ab5b-08c5bb95c3ce"
+authors = ["Eben60"]
+version = "0.0.1"
+
+[compat]
+julia = "1.12"

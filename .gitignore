@@ -1,0 +1,8 @@
+# MS Office temporary files
+# Mac
+**/.DS_Store
+**/Manifest-v*.toml
+/Manifest*.toml
+/docs/Manifest*.toml
+/docs/build/
+~$*.*
