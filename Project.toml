@@ -1,7 +1,7 @@
 name = "KaimonGate"
 uuid = "82bdf658-d2ed-47ee-ab5b-08c5bb95c3ce"
 version = "0.0.1"
-authors = ["Eben60"]
+authors = ["Kahli Burke <kahli@kahliburke.com>", "Eben60"]
 
 [deps]
 Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
@@ -14,4 +14,4 @@ Dates = "1.10.0"
 REPL = "1.10.0"
 Serialization = "1.10.0"
 ZMQ = "1.5.1"
-julia = "1.10"
+julia = "1.12"
