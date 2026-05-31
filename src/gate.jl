@@ -1863,14 +1863,14 @@ to override the TTY check.
 
 # Example
 ```julia
-import KaimonGate as KG
-KG.serve()
+using KaimonGate
+KaimonGate.serve()
 
 # With custom tools
-KG.serve(tools=[GateTool("send_key", my_key_handler)])
+KaimonGate.serve(tools=[GateTool("send_key", my_key_handler)])
 
 # TCP mode for remote debugging (e.g. from a model server)
-KG.serve(mode=:tcp, port=9876, force=true)
+KaimonGate.serve(mode=:tcp, port=9876, force=true)
 ```
 
 # Environment variables
