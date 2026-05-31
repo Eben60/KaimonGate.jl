@@ -18,4 +18,6 @@ using ZMQ
 
 include("gate.jl")
 
+@static VERSION ≥ v"1.11.0" && include("public.julia")
+
 end
