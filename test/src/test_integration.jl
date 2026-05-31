@@ -26,7 +26,10 @@ end
 # ── IPC gate lifecycle ─────────────────────────────────────────────────────────
 
 @testset "IPC gate lifecycle" begin
-    session_id = "test-ipc-$(bytes2hex(rand(UInt8, 4)))"
+    if Sys.iswindows()
+        @test_skip true
+    else
+        session_id = "test-ipc-$(bytes2hex(rand(UInt8, 4)))"
     KaimonGate._serve(name="test", session_id=session_id, force=true)
     sleep(0.15)   # let sockets bind
 
@@ -54,6 +57,7 @@ end
     end
 
     @test !KaimonGate._RUNNING[]
+    end # if Sys.iswindows()
 end
 
 # ── Async tool progress + result ──────────────────────────────────────────────
@@ -71,19 +75,26 @@ end
     KaimonGate._serve(name="test", session_id=session_id, force=true, tools=[tool])
     sleep(0.15)
 
-    sock_dir = KaimonGate.SOCK_DIR
-    rep_path = joinpath(sock_dir, "$session_id.sock")
-    pub_path = joinpath(sock_dir, "$session_id-stream.sock")
-
     ctx = ZMQ.Context()
     req = ZMQ.Socket(ctx, ZMQ.REQ)
     sub = ZMQ.Socket(ctx, ZMQ.SUB)
+    
+    if Sys.iswindows()
+        sock = KaimonGate._GATE_SOCKET[]
+        rep_path = rstrip(ZMQ._get_last_endpoint(sock), '\0')
+        pub_sock = KaimonGate._STREAM_SOCKET[]
+        pub_path = rstrip(ZMQ._get_last_endpoint(pub_sock), '\0')
+    else
+        sock_dir = KaimonGate.SOCK_DIR
+        rep_path = "ipc://" * joinpath(sock_dir, "$session_id.sock")
+        pub_path = "ipc://" * joinpath(sock_dir, "$session_id-stream.sock")
+    end
     req.rcvtimeo = 5_000
     sub.rcvtimeo = 5_000
     req.linger = 0
     sub.linger = 0
-    ZMQ.connect(req, "ipc://$rep_path")
-    ZMQ.connect(sub, "ipc://$pub_path")
+    ZMQ.connect(req, rep_path)
+    ZMQ.connect(sub, pub_path)
     ZMQ.subscribe(sub, "")
     sleep(0.1)   # let SUB handshake before tool runs
 

@@ -1911,7 +1911,7 @@ function serve(;
         elseif toml_mode == "tcp" || has_toml_port
             :tcp
         else
-            :ipc
+            Sys.iswindows() ? :tcp : :ipc
         end
     end
     if host === nothing
@@ -1963,7 +1963,7 @@ function _serve(;
     spawned_by::String="user",
     on_shutdown::Any=nothing,
     infiltrator::Bool=true,
-    mode::Symbol=:ipc,
+    mode::Symbol=(Sys.iswindows() ? :tcp : :ipc),
     host::String="127.0.0.1",
     port::Int=9876,
     stream_port::Int=0,
