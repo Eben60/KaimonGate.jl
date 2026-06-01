@@ -26,6 +26,10 @@ using ZMQ
 
 include("gate.jl")
 
-@static VERSION ≥ v"1.11.0" && include("public.julia")
+public serve, stop, restart, status
+public GateTool
+public is_cancelled, stash, progress, push_panel
+public call_tool, list_tools
+public tty_path, tty_size, uninstall_infiltrator_hook!
 
 end
