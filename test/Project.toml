@@ -7,3 +7,4 @@ ZMQ = "c2297ded-f4af-51ae-bb23-16f91089e4e1"
 
 [compat]
 Aqua = "0.8.14"
+SafeTestsets = "0.1.0"
